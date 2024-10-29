@@ -33,9 +33,3 @@ function force_auth(): void
         die();
     }
 }
-
-function is_admin(): bool
-{
-    $user = get_user();
-    return $user !== null && $user['admin'] === 1;
-}

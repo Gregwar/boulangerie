@@ -71,8 +71,7 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`) VALUES
 CREATE TABLE `users` (
   `id` int NOT NULL,
   `email` text NOT NULL,
-  `password` text NOT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT '0'
+  `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

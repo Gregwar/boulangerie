@@ -32,13 +32,11 @@ function user_exists(string $email): bool
 function create_user(string $email, string $password): int
 {
     global $pdo;
-    $first_user = count_users() === 0;
-    $sql = "INSERT INTO users (email, password, admin) VALUES (:email, :password, :admin)";
+    $sql = "INSERT INTO users (email, password) VALUES (:email, :password)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         'email' => $email,
-        'password' => sha1($password),
-        'admin' => $first_user ? 1 : 0,
+        'password' => sha1($password)
     ]);
 
     return $pdo->lastInsertId();
@@ -78,14 +76,6 @@ function check_user_auth(string $email, string $password)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function make_admin(string $email)
-{
-    global $pdo;
-    $sql = "UPDATE users SET admin = 1 WHERE email = :email";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['email' => $email]);
-}
-
 function get_products(): array
 {
     global $pdo;
@@ -119,7 +109,8 @@ function get_product(int $id): array
 function search_products(string $keyword): array
 {
     global $pdo;
-    $sql = "SELECT * FROM products WHERE name LIKE :keyword OR description LIKE \"%$keyword%\"";
+    $sql = "SELECT * FROM products WHERE name LIKE \"%$keyword%\" OR description LIKE \"%$keyword%\"";
+    echo $sql;
     $stmt = $pdo->query($sql);
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

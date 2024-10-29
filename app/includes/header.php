@@ -42,11 +42,6 @@ require_once("includes/db.php");
                             <?php menu_link("/products.php", "Produits"); ?>
                         </li>
                         <?php if (is_logged_in()) { ?>
-                            <?php if (is_admin()) { ?>
-                                <li class="nav-item">
-                                    <?php menu_link("/admin.php", "Admin", "text-warning"); ?>
-                                </li>
-                            <?php } ?>
                             <li class="nav-item">
                                 <?php menu_link("/account.php", "Mon compte"); ?>
                             </li>
