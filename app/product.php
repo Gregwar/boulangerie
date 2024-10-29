@@ -7,8 +7,6 @@ if ($product_exists) {
 ?>
 <?php require('includes/header.php'); ?>
 
-<img src="products/<?php echo $product['id']; ?>.png" width="128" class="float-end" alt="<?php echo $product['name']; ?>" />
-
 <?php if (!$product_exists) { ?>
     <h2>
         Produit non trouvé!
@@ -16,6 +14,7 @@ if ($product_exists) {
 
     Désolé, le produit demandé n'existe pas.
 <?php } else { ?>
+    <img src="products/<?php echo $product['id']; ?>.png" width="128" class="float-end" alt="<?php echo $product['name']; ?>" />
 
     <h2>
         <?= $product['name']; ?>
