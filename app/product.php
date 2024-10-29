@@ -32,9 +32,4 @@ if ($product_exists) {
 
 <?php } ?>
 
-<?php
-
-include('includes/products.php');
-?>
-
 <?php require('includes/footer.php'); ?>
