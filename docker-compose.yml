@@ -1,0 +1,42 @@
+# docker-compose.yml
+version: '3.2'
+
+services:
+    db:
+        image: mysql:8.0
+        container_name: boulangerie_db
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - type: bind
+              source: ./app/database/
+              target: /docker-entrypoint-initdb.d
+
+    pma:
+        depends_on:
+            - db
+        image: phpmyadmin/phpmyadmin
+        container_name: boulangerie_phpmyadmin
+        restart: always
+        ports:
+            - '5001:80'
+        environment:
+            PMA_HOST: db
+            UPLOAD_LIMIT: 128M
+
+    app:
+        depends_on:
+            - db
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: boulangerie_app
+        restart: always
+        ports:
+            - '5000:80'
+        volumes:
+            - type: bind
+              source: ./app/
+              target: /var/www/html/
+        
